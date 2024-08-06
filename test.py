@@ -2,22 +2,15 @@ import os
 import subprocess
 import json
 
-def export_tasks_to_xml():
-    desktop_path = r"C:\Users\goela13\OneDrive - moodys.com\Desktop\Ansh Goel Docs\export_tasks"
-
-    # Create a directory to store individual task files
-    output_dir = os.path.join(desktop_path, "task_files")
+def export_tasks_to_github():
+    # Change this to the path of your local GitHub repository
+    repo_path = r"C:\Users\goela13\OneDrive - moodys.com\Desktop\Ansh Goel Docs\export_tasks"
+        # Create a directory to store individual task files
+    output_dir = os.path.join(repo_path, "task_files")
     os.makedirs(output_dir, exist_ok=True)
-
     try:
         # Fetch all scheduled tasks and their information
-        command = """
-Get-ScheduledTask | Where-Object { $_.TaskPath -notlike '\\Microsoft\\Windows*' } |
-Get-ScheduledTaskInfo | Select TaskName, TaskPath, LastRunTime, LastTaskResult | ConvertTo-Json
-"""
-
-#Get-ScheduledTask | Where-Object { $_.TaskPath -like '\\MyTasks\\*' } | Get-ScheduledTaskInfo | Select TaskName, TaskPath, LastRunTime, LastTaskResult | ConvertTo-Json
-
+        command = "Get-ScheduledTask | Get-ScheduledTaskInfo | Select TaskName, TaskPath, LastRunTime, LastTaskResult | ConvertTo-Json"
         result = subprocess.run(["powershell", "-Command", command], capture_output=True, text=True, check=True)
         tasks = json.loads(result.stdout)
 
@@ -56,8 +49,16 @@ Get-ScheduledTaskInfo | Select TaskName, TaskPath, LastRunTime, LastTaskResult |
             os.rename(temp_file_path, task_file_path)
             print(f"Task script exported and saved to {task_file_path}")
 
+        # Change directory to the local GitHub repository
+        os.chdir(repo_path)
+
+        # Add, commit, and push the changes to the GitHub repository
+        subprocess.run(["git", "add", "."], check=True)
+        subprocess.run(["git", "commit", "-m", "Add exported task scripts"], check=True)
+        subprocess.run(["git", "push"], check=True)
+        print("Changes pushed to GitHub repository")
     except subprocess.CalledProcessError as e:
         print(f"Error fetching the task information. Error: {e}")
 
 # Run the function
-export_tasks_to_xml()
+export_tasks_to_github()
