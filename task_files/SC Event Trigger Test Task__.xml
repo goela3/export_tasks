@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Author>ForeScout Technologies, Inc.</Author>
+    <URI>\SC Event Trigger Test Task</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="EventTriggerForSCService">
+      <DisplayName>SC Event Task Scheduler TEST</DisplayName>
+      <UserId>S-1-5-18</UserId>
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>
+    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+    <Hidden>true</Hidden>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <RestartOnFailure>
+      <Count>10</Count>
+      <Interval>PT1M</Interval>
+    </RestartOnFailure>
+    <StartWhenAvailable>true</StartWhenAvailable>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+  </Settings>
+  <Triggers>
+    <EventTrigger id="ForeScout SC Event Trigger">
+      <Delay>PT30S</Delay>
+      <Subscription>&lt;QueryList&gt;&lt;Query Id="1" Path="System"&gt;&lt;Select Path="System"&gt;*[System[(Level=2) and (EventID=7009)]] and *[EventData[(Data[@Name="param2"]="ForeScout SecureConnector Service")]]&lt;/Select&gt;&lt;/Query&gt;&lt;/QueryList&gt;</Subscription>
+    </EventTrigger>
+  </Triggers>
+  <Actions Context="EventTriggerForSCService">
+    <Exec>
+      <Command>"C:\Program Files\ForeScout SecureConnector\SecureConnector.exe"</Command>
+    </Exec>
+  </Actions>
+</Task>
