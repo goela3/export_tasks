@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>Keeps your ThousandEyes software up to date. If this task is disabled or stopped, your ThousandEyes software will not be kept up to date, meaning security vulnerabilities that may arise cannot be fixed and features may not work. This task uninstalls itself when there is no ThousandEyes software using it.</Description>
+    <URI>\ThousandEyes Endpoint Agent Updater Installer</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="LocalSystem">
+      <UserId>S-1-5-18</UserId>
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <IdleSettings>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+  </Settings>
+  <Triggers>
+    <LogonTrigger />
+    <CalendarTrigger>
+      <StartBoundary>2016-01-01T11:00:00</StartBoundary>
+      <Repetition>
+        <Interval>PT4H</Interval>
+        <Duration>P1D</Duration>
+      </Repetition>
+      <ScheduleByDay>
+        <DaysInterval>1</DaysInterval>
+      </ScheduleByDay>
+    </CalendarTrigger>
+  </Triggers>
+  <Actions Context="LocalSystem">
+    <Exec>
+      <Command>"C:\Program Files (x86)\ThousandEyes\Endpoint Agent\te-updater.exe"</Command>
+      <Arguments>/Install</Arguments>
+    </Exec>
+  </Actions>
+</Task>
