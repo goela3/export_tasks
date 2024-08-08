@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <SecurityDescriptor>D:P(A;;FA;;;BA)(A;;FA;;;SY)</SecurityDescriptor>
+    <Author>Microsoft Corporation</Author>
+    <Description>Sensor Framework Logon Task</Description>
+    <URI>\SensorFramework-LogonTask-{100ee514-48c8-f419-6760-6fb8cb2767cd}</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="S-1-5-18">
+      <UserId>S-1-5-18</UserId>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>true</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+  </Settings>
+  <Triggers>
+    <LogonTrigger />
+  </Triggers>
+  <Actions Context="S-1-5-18">
+    <Exec>
+      <Command>C:\Program Files (x86)\Microsoft Intune Management Extension\SensorLogonTask.exe</Command>
+      <Arguments>SensorFramework-LogonTask-{100ee514-48c8-f419-6760-6fb8cb2767cd}</Arguments>
+    </Exec>
+  </Actions>
+</Task>
