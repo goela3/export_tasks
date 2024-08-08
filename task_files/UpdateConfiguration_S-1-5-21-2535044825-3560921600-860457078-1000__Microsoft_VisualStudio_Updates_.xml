@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Author>Microsoft Visual Studio</Author>
+    <URI>\Microsoft\VisualStudio\Updates\UpdateConfiguration_S-1-5-21-2535044825-3560921600-860457078-1000</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-21-2535044825-3560921600-860457078-1000</UserId>
+      <LogonType>InteractiveToken</LogonType>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <Hidden>true</Hidden>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+  </Settings>
+  <Triggers>
+    <LogonTrigger>
+      <Delay>PT15S</Delay>
+      <UserId>MYPC-03-TVDG1NP\defaultuser0</UserId>
+    </LogonTrigger>
+  </Triggers>
+  <Actions Context="Author">
+    <Exec>
+      <Command>C:\Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\ServiceHub\Services\Microsoft.VisualStudio.Setup.Service\VSIXConfigurationUpdater.exe</Command>
+    </Exec>
+  </Actions>
+</Task>
